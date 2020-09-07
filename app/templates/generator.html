@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:https="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generator</title>
+</head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/page_style.css') }}">
+
+<script type="text/javascript">
+    function getMessage(p) {
+        const d = document.getElementById('myDiv');
+        const x = p.message;
+        if (x === "True" && clicked === "gen") {
+            d.innerHTML = "<p><b>Congrats! You have the eye of a tiger!</b></p>"
+        } else if (x === "False" && clicked === "dis") {
+            d.innerHTML = "<p><b>Cool! You know your database!</b></p>"
+        } else {
+            d.innerHTML = "<p><b>Sorry! Not Lucky Today!</b></p>"
+        }
+        if (d.style.display !== "block") {
+            d.style.display = "block";
+        } else {
+            d.style.display = "none";
+        }
+        document.getElementById('gen').setAttribute("disabled", "disabled");
+        document.getElementById('dis').setAttribute("disabled", "disabled");
+    }
+</script>
+
+<body>
+<div id="buttons">
+    <ul id="image-list">
+        <li><img src="/static/raw/generated.png" style="width: 100px;height: auto" alt=""></li>
+    </ul>
+    <form onsubmit="getMessage({{ paramsv }});return false">
+        <input id="gen" onclick="clicked ='gen'" type="submit" value="I'm sure the generator created it"/>
+        <input id="dis" onclick="clicked ='dis'" type="submit" value="I guess it is from the dataset"/>
+    </form>
+</div>
+<div id="myDiv"></div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+li {
+    display: inline-block;
+}
+
+body {
+    margin: 0 auto;
+    height: 100%;
+    max-width: 700px;
+    max-height: 700px;
+    background-image: linear-gradient(to right, white, black);
+}
+
+html {
+    height: 80%;
+}
+
+#buttons {
+    float: right;
+    position: relative;
+    left: -30%;
+    top: 30%;
+}
+
+#buttons ul {
+    list-style: none;
+    position: relative;
+    left: 30%;
+}
+
+#buttons li {
+    box-shadow: 0 0 20px #000;
+    float: left;
+    position: relative;
+}
+
+#buttons a {
+    text-decoration: none;
+    float: left;
+    color: darkblue;
+    padding: 2px 5px;
+    text-align: center;
+}
+
+#buttons a:hover {
+    color: darkgreen;
+    background: darkcyan;
+}
+
+#buttons img {
+    text-decoration: none;
+    float: top;
+    color: darkblue;
+    padding: 2px 5px;
+}
+
+#buttons form {
+    float: left;
+    position: relative;
+    text-align: center;
+}
+
+#myDiv {
+    position: absolute;
+    bottom: 50%;
+    left: 40%;
+    width: 100%;
+    height: 60px;
+}

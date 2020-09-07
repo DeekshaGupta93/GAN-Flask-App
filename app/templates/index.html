@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:https="http://www.w3.org/1999/xhtml" lang="en">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/page_style.css') }}">
+<head>
+    <title>{{ author }}'s app</title>
+</head>
+
+<body>
+<div id="buttons">
+    <li>
+        <a href="/generator" onclick="$('#loading').show();">
+            <img src="/static/raw/thief.png" style="width: 165px;height: 248px;" alt=""/>
+            <h3>Catch Generator</h3>
+        </a>
+    </li>
+    <li>
+        <a href="/discriminator" onclick="$('#loading').show();">
+            <img src="/static/raw/police.png" class="thief" style="width: 200px;height: 248px;"
+                 alt=""/>
+            <h3>Test Discriminator</h3>
+        </a>
+    </li>
+</div>
+<div id="loading" style="display:none;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif"
+         alt=""/>Loading!
+</div>
+</body>
+</html>

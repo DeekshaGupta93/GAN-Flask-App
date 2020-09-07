@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/page_style.css') }}">
+<head>
+    <meta charset="UTF-8">
+    <title>Discriminator Test</title>
+</head>
+<body>
+<div id="buttons">The discriminator's output is <b>{{ output }}</b>
+    <p>The output value tells us about how efficient was the discriminator in differentiating the image.
+        If the value of the output is closer to zero then the provided image is fake and vice-versa.
+        The efficiency of the discriminator depends on the training of the model. The model used here was
+        trained for 200 epochs.
+        You can read more about the GAN model here:<br/>
+        <a href="https://en.wikipedia.org/wiki/Generative_adversarial_network"></a></p>
+</div>
+</body>
+</html>

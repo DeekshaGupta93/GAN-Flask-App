@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/page_style.css') }}">
+<head>
+    <meta charset="UTF-8">
+    <title>Discriminator</title>
+</head>
+<body class="center">
+<div id="buttons">
+    <h1>Upload an image to test the Discriminator's calculated values</h1>
+    <form method="POST" action="/discriminator/test" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Submit">
+    </form>
+</div>
+</body>
+</html>
