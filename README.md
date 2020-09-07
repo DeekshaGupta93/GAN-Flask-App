@@ -1,1 +1,1 @@
-# GAN-Flask-App
+#  Generative adversarial network 
