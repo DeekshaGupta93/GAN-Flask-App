@@ -11,6 +11,7 @@ from keras.datasets import mnist
 import cv2.cv2
 
 app = Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 generator, discriminator = None, None
 X_train = None
@@ -47,7 +48,7 @@ def generator_route():
 
     else:
         img = X_train[0]
-        img = img[random.randint(0, 10000)]
+        img = img[random.randint(0, 60000)]
         _ = plt.imshow(img, interpolation='nearest', cmap='gray_r')
         plt.axis('off')
         plt.savefig('./static/raw/generated.png')
@@ -58,17 +59,6 @@ def generator_route():
 
 @app.route("/discriminator/")
 def discriminator_route():
-    noise = np.random.normal(0, 1, size=[1, 100])
-    generated_images = generator.predict(noise)
-    generated_images = generated_images.reshape(1, 28, 28)
-    plt.imshow(generated_images[0], interpolation='nearest', cmap='gray_r')
-    plt.axis('off')
-    plt.savefig('./static/raw/discriminator/1.png')
-    img = X_train[0]
-    img = img[random.randint(0, 10000)]
-    plt.imshow(img, interpolation='nearest', cmap='gray_r')
-    plt.axis('off')
-    plt.savefig('./static/raw/discriminator/2.png')
     return render_template('discriminator.html')
 
 
@@ -76,18 +66,32 @@ def discriminator_route():
 def upload_file():
     uploaded_file = request.files['file']
     if uploaded_file.filename != '':
-        uploaded_file.save('static/raw/discriminator' + uploaded_file.filename)
-    img = cv2.imread('static/raw/discriminator' + uploaded_file.filename, 0)
-    img = cv2.resize(img, (28, 28))
-    img = ~img
-    img = img.reshape(1, 784)
-    img = (img.astype(np.float32) - 127.5) / 127.5
-    output = discriminator.predict(img)[0][0]
+        uploaded_file.save('static/raw/discriminator/test.png')
+    img = cv2.imread('static/raw/discriminator/test.png', 0)
+    if not img.shape == (28, 28):
+        img = cv2.resize(img, (28, 28))
+    flat_img = img.reshape(1, 784)
+    flat_img = (flat_img.astype(np.float32) - 127.5) / 127.5
+    output = discriminator.predict(flat_img)[0][0]
+    if output == 0:
+        img = ~img
+        img = img.reshape(1, 784)
+        img = (img.astype(np.float32) - 127.5) / 127.5
+        output = discriminator.predict(img)[0][0]
     return render_template('test.html', output=str(output))
+
+
+@app.after_request
+def add_header(response):
+    response.headers[
+        'Cache-Control'] = 'no-store, no-cache, must-revalidate, post - check = 0, pre - check = 0, max - age = 0'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '-1'
+    return response
 
 
 init()
 if __name__ == '__main__':
     print("* Loading Keras model and Flask starting server..."
           "please wait until server has fully started")
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=False)
