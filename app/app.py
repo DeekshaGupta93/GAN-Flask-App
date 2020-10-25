@@ -29,7 +29,7 @@ def init():
 
 @app.route('/')
 def hello():
-    author = "Vishal"
+    author = "Deeksha"
     return render_template('index.html', author=author)
 
 
